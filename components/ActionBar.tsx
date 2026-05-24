@@ -100,7 +100,7 @@ export default function ActionBar() {
             Mis Laminas
           </button>
 
-          <button className={`${styles.btn} ${styles.qrBtn}`} onClick={() => setShowQR(true)} type="button">
+          {/* <button className={`${styles.btn} ${styles.qrBtn}`} onClick={() => setShowQR(true)} type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="3" width="7" height="7" />
               <rect x="14" y="3" width="7" height="7" />
@@ -108,7 +108,7 @@ export default function ActionBar() {
               <rect x="14" y="14" width="7" height="7" />
             </svg>
             QR
-          </button>
+          </button> */}
 
           <input
             ref={fileInputRef}

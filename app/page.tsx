@@ -17,7 +17,7 @@ function HeroStats() {
 
     let owned = 0;
     Object.values(activeSession.stickers).forEach((stickers) => {
-      owned += stickers.filter(Boolean).length;
+      owned += stickers.filter((count) => count > 0).length;
     });
 
     return {
@@ -36,8 +36,8 @@ function HeroStats() {
       <div className={styles.heroRight}>
         <h2 className={styles.heroTitle}>World Cup<br />Sticker Album</h2>
         <p className={styles.heroSubtitle}>
-          Haz un seguimiento de tu colección Panini del Mundial de la FIFA 2026. Completa las colecciones de las 48 selecciones nacionales para llenar tu álbum.        </p>
-          <p>Desarrollado por <a href="https://instagram.com/felipec.ia" target="_blank" rel="noopener noreferrer">@felipec.ia</a></p>
+          Haz un seguimiento de tu colección Panini del Mundial de la FIFA 2026. Completa las colecciones de las 48 selecciones nacionales para llenar tu álbum.
+        </p>
         <div className={styles.statsRow}>
           <div className={styles.statItem}>
             <span className={styles.statValue}>{stats.owned}</span>
@@ -65,7 +65,7 @@ function ProgressBar() {
 
     let owned = 0;
     Object.values(activeSession.stickers).forEach((stickers) => {
-      owned += stickers.filter(Boolean).length;
+      owned += stickers.filter((count) => count > 0).length;
     });
 
     return {
@@ -102,7 +102,7 @@ function TeamsGrid() {
     if (!activeSession) return 0;
     const stickers = activeSession.stickers[teamCode];
     if (!stickers) return 0;
-    return stickers.filter(Boolean).length;
+    return stickers.filter((count) => count > 0).length;
   };
 
   return (

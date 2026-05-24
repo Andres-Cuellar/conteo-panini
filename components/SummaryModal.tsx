@@ -18,9 +18,13 @@ export default function SummaryModal({ onClose }: SummaryModalProps) {
     return TEAMS
       .map((team) => {
         const stickers = activeSession.stickers[team.code] || [];
-        const missing = stickers
-          .map((owned, idx) => (!owned ? idx + 1 : null))
-          .filter((n): n is number => n !== null);
+        const missing: number[] = [];
+
+        stickers.forEach((count, idx) => {
+          if (count === 0) {
+            missing.push(idx + 1);
+          }
+        });
 
         if (missing.length === 0) return null;
         return {
@@ -41,7 +45,7 @@ export default function SummaryModal({ onClose }: SummaryModalProps) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Stickers faltantes</h2>
+          <h2 className={styles.title}>Missing Stickers</h2>
           <button className={styles.closeBtn} onClick={onClose} type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -53,7 +57,7 @@ export default function SummaryModal({ onClose }: SummaryModalProps) {
         <div className={styles.content}>
           <div className={styles.totalBadge}>
             <span className={styles.totalNumber}>{totalMissing}</span>
-            <span className={styles.totalLabel}>Sticker faltantes</span>
+            <span className={styles.totalLabel}>missing stickers</span>
           </div>
 
           <div className={styles.teamList}>

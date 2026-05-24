@@ -13,12 +13,6 @@ function TeamDetailContent() {
   const router = useRouter();
   const { activeSession, toggleSticker, markTeamStickers } = useApp();
 
-  const handleBack = () => {
-    if (typeof window !== 'undefined') {
-      window.history.back();
-    }
-  };
-
   const teamCode = params.code as string;
   const team = getTeamByCode(teamCode);
 
@@ -26,7 +20,7 @@ function TeamDetailContent() {
     if (!activeSession || !team) return { owned: 0, total: STICKERS_PER_TEAM, percentage: 0 };
 
     const stickers = activeSession.stickers[teamCode] || [];
-    const owned = stickers.filter(Boolean).length;
+    const owned = stickers.filter((count) => count > 0).length;
 
     return {
       owned,
@@ -34,6 +28,10 @@ function TeamDetailContent() {
       percentage: (owned / STICKERS_PER_TEAM) * 100,
     };
   }, [activeSession, teamCode, team]);
+
+  const handleToggle = (index: number) => {
+    toggleSticker(teamCode, index);
+  };
 
   if (!team) {
     return (
@@ -46,20 +44,12 @@ function TeamDetailContent() {
     );
   }
 
-  const handleToggle = (index: number) => {
-    toggleSticker(teamCode, index);
-  };
-
-  const handleMarkAll = (owned: boolean) => {
-    markTeamStickers(teamCode, owned);
-  };
-
-  const stickers = activeSession?.stickers[teamCode] || [];
+  const stickers = activeSession?.stickers[teamCode] || Array(20).fill(0);
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backBtn} onClick={handleBack} type="button">
+        <button className={styles.backBtn} onClick={() => router.push('/')} type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="15 18 9 12 15 6" />
           </svg>
@@ -75,35 +65,35 @@ function TeamDetailContent() {
             <h1 className={styles.name}>{team.name}</h1>
           </div>
           <div className={styles.ring}>
-            <ProgressRing percentage={stats.percentage} size={80} strokeWidth={6} />
+            <ProgressRing percentage={stats.percentage} size={80} strokeWidth={6} showLabelText={false} />
           </div>
         </section>
 
         <section className={styles.stats}>
           <div className={styles.statItem}>
             <span className={styles.statValue}>{stats.owned}</span>
-            <span className={styles.statLabel}>Obtenidas</span>
+            <span className={styles.statLabel}>Owned</span>
           </div>
           <div className={styles.statItem}>
             <span className={styles.statValue}>{stats.total - stats.owned}</span>
-            <span className={styles.statLabel}>Faltantes</span>
+            <span className={styles.statLabel}>Missing</span>
           </div>
         </section>
 
         <section className={styles.actions}>
           <button
             className={styles.actionBtn}
-            onClick={() => handleMarkAll(true)}
+            onClick={() => markTeamStickers(teamCode, true)}
             type="button"
           >
-           Marcar todas como obtenidas
+            Mark All Owned
           </button>
           <button
             className={`${styles.actionBtn} ${styles.actionBtnOutline}`}
-            onClick={() => handleMarkAll(false)}
+            onClick={() => markTeamStickers(teamCode, false)}
             type="button"
           >
-            Marcar todas como faltantes
+            Mark All Missing
           </button>
         </section>
 
@@ -112,7 +102,7 @@ function TeamDetailContent() {
             <StickerButton
               key={i}
               number={i + 1}
-              owned={stickers[i] || false}
+              owned={stickers[i] > 0}
               onClick={() => handleToggle(i)}
             />
           ))}

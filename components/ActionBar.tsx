@@ -1,18 +1,31 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { useApp } from '@/context/AppContext';
 import { exportSessionData, importSessionData, downloadJSON } from '@/lib/storage';
 import QRModal from './QRModal';
 import SummaryModal from './SummaryModal';
+import RepeatedModal from './RepeatedModal';
 import styles from './ActionBar.module.css';
 
 export default function ActionBar() {
   const { activeSession, importSession } = useApp();
   const [showQR, setShowQR] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
+  const [showRepeated, setShowRepeated] = useState(false);
   const [importStatus, setImportStatus] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const totalOwned = useMemo(() => {
+    if (!activeSession) return 0;
+    let count = 0;
+    Object.values(activeSession.stickers).forEach((stickers) => {
+      stickers.forEach((c) => {
+        if (c > 0) count++;
+      });
+    });
+    return count;
+  }, [activeSession]);
 
   const handleExport = () => {
     if (!activeSession) return;
@@ -74,12 +87,20 @@ export default function ActionBar() {
               <polyline points="14 2 14 8 20 8" />
               <line x1="16" y1="13" x2="8" y2="13" />
               <line x1="16" y1="17" x2="8" y2="17" />
-              <polyline points="10 9 9 9 8 9" />
             </svg>
             Resumen
           </button>
 
-          {/* <button className={`${styles.btn} ${styles.qrBtn}`} onClick={() => setShowQR(true)} type="button">
+          <button className={styles.btn} onClick={() => setShowRepeated(true)} type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <line x1="3" y1="9" x2="21" y2="9" />
+              <line x1="9" y1="21" x2="9" y2="9" />
+            </svg>
+            Mis Laminas
+          </button>
+
+          <button className={`${styles.btn} ${styles.qrBtn}`} onClick={() => setShowQR(true)} type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="3" y="3" width="7" height="7" />
               <rect x="14" y="3" width="7" height="7" />
@@ -87,7 +108,7 @@ export default function ActionBar() {
               <rect x="14" y="14" width="7" height="7" />
             </svg>
             QR
-          </button> */}
+          </button>
 
           <input
             ref={fileInputRef}
@@ -109,6 +130,7 @@ export default function ActionBar() {
 
       {showQR && <QRModal onClose={() => setShowQR(false)} />}
       {showSummary && <SummaryModal onClose={() => setShowSummary(false)} />}
+      {showRepeated && <RepeatedModal onClose={() => setShowRepeated(false)} />}
     </>
   );
 }

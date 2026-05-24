@@ -5,15 +5,15 @@ export interface SharedCollection {
   teams: Record<string, number[]>;
 }
 
-export function encodeMissingToURL(stickers: Record<string, boolean[]>): string {
+export function encodeMissingToURL(stickers: Record<string, number[]>): string {
   const teams: Record<string, number[]> = {};
 
   TEAMS.forEach((team) => {
-    const owned = stickers[team.code];
-    if (owned) {
+    const counts = stickers[team.code];
+    if (counts) {
       const missingIndices: number[] = [];
-      owned.forEach((isOwned, index) => {
-        if (!isOwned) {
+      counts.forEach((count, index) => {
+        if (count === 0) {
           missingIndices.push(index + 1);
         }
       });

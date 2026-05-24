@@ -1,5 +1,5 @@
 import { Session, AppState } from '@/context/AppContext';
-import { TOTAL_STICKERS, initializeStickers, TEAMS } from './teams';
+import { TEAMS, initializeStickers } from './teams';
 
 const STORAGE_KEY = 'panini-album-data';
 
@@ -13,6 +13,16 @@ export function loadAppState(): AppState {
     if (stored) {
       const parsed = JSON.parse(stored) as AppState;
       if (parsed.sessions && parsed.sessions.length > 0) {
+        // Handle legacy boolean arrays
+        if (typeof parsed.sessions[0].stickers['bra']?.[0] === 'boolean') {
+          parsed.sessions = parsed.sessions.map((session) => {
+            const newStickers: Record<string, number[]> = {};
+            Object.entries(session.stickers).forEach(([teamCode, stickers]) => {
+              newStickers[teamCode] = (stickers as unknown as boolean[]).map((owned) => owned ? 1 : 0);
+            });
+            return { ...session, stickers: newStickers };
+          });
+        }
         return parsed;
       }
     }
@@ -58,7 +68,7 @@ export function generateId(): string {
 
 export function exportSessionData(session: Session): string {
   const data = {
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
     session: {
       name: session.name,
@@ -79,11 +89,22 @@ export function importSessionData(jsonString: string): Session | null {
     }
 
     const now = Date.now();
+    let stickers = data.session.stickers;
+
+    // Handle version 1 (boolean arrays)
+    if (typeof stickers['bra']?.[0] === 'boolean') {
+      const newStickers: Record<string, number[]> = {};
+      Object.entries(stickers).forEach(([teamCode, s]) => {
+        newStickers[teamCode] = (s as unknown as boolean[]).map((owned) => owned ? 1 : 0);
+      });
+      stickers = newStickers;
+    }
+
     const session: Session = {
       id: generateId(),
       name: data.session.name,
       createdAt: now,
-      stickers: data.session.stickers,
+      stickers,
     };
 
     const allTeams = Object.keys(session.stickers);

@@ -70,6 +70,7 @@ export function getTeamByCode(code: string): Team | undefined {
   return TEAMS.find((team) => team.code === code);
 }
 
-export function initializeStickers(): boolean[] {
-  return Array(STICKERS_PER_TEAM).fill(false);
+// 0 = missing, 1+ = owned (1 = one copy, 2 = two copies (repeated), etc.)
+export function initializeStickers(): number[] {
+  return Array(STICKERS_PER_TEAM).fill(0);
 }

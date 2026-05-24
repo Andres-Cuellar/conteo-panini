@@ -99,7 +99,7 @@ export default function ActionBar() {
         </div>
 
         <div className={styles.footer}>
-          powered by <a href="https://creamostuweb.co" target="_blank" rel="noopener noreferrer">creamostuweb.co</a>
+          by <a href="https://instagram.com/felipec.ia" target="_blank" rel="noopener noreferrer">@felipec.ia</a> • <a href="https://creamostuweb.co" target="_blank" rel="noopener noreferrer">creamostuweb.co</a>
         </div>
       </div>
 

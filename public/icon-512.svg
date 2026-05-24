@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="100" fill="#0f1117"/>
+  <rect x="48" y="48" width="416" height="416" rx="64" fill="#1a1d26"/>
+  <text x="256" y="290" font-family="sans-serif" font-size="200" font-weight="bold" fill="#e63946" text-anchor="middle">📘</text>
+  <text x="256" y="400" font-family="sans-serif" font-size="60" font-weight="bold" fill="#f5f5f7" text-anchor="middle">2026</text>
+</svg>

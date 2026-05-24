@@ -7,6 +7,7 @@ import styles from './TeamCard.module.css';
 interface TeamCardProps {
   code: string;
   name: string;
+  abbr: string;
   flag: string;
   group: string;
   ownedCount: number;
@@ -16,6 +17,7 @@ interface TeamCardProps {
 export default function TeamCard({
   code,
   name,
+  abbr,
   flag,
   group,
   ownedCount,
@@ -29,6 +31,7 @@ export default function TeamCard({
           <span className={styles.group}>Group {group}</span>
           <span className={styles.name}>{name}</span>
         </div>
+        <span className={styles.abbr}>{abbr}</span>
       </div>
       <div className={styles.progress}>
         <div className={styles.progressBar}>

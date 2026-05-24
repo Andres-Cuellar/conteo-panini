@@ -81,6 +81,16 @@
   gap: 4px;
 }
 
+.abbr {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--border);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+}
+
 .group {
   font-size: 0.75rem;
   font-weight: 600;

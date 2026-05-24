@@ -60,6 +60,7 @@ function TeamDetailContent() {
       <main className={styles.main}>
         <section className={styles.teamInfo}>
           <span className={styles.flag}>{team.flag}</span>
+          <span className={styles.abbr}>{team.abbr}</span>
           <div className={styles.info}>
             <span className={styles.group}>Group {team.group}</span>
             <h1 className={styles.name}>{team.name}</h1>

@@ -30,7 +30,9 @@ export default function RepeatedModal({ onClose }: RepeatedModalProps) {
         return {
           code: team.code,
           name: team.name,
+          abbr: team.abbr,
           flag: team.flag,
+          group: team.group,
           owned,
         };
       })
@@ -39,6 +41,18 @@ export default function RepeatedModal({ onClose }: RepeatedModalProps) {
 
   const totalOwned = useMemo(() => {
     return ownedItems.reduce((acc, team) => acc + team.owned.length, 0);
+  }, [ownedItems]);
+
+  // Group items by group letter
+  const groupedItems = useMemo(() => {
+    const groups: Record<string, typeof ownedItems> = {};
+    ownedItems.forEach((team) => {
+      if (!groups[team.group]) {
+        groups[team.group] = [];
+      }
+      groups[team.group].push(team);
+    });
+    return groups;
   }, [ownedItems]);
 
   return (
@@ -60,36 +74,47 @@ export default function RepeatedModal({ onClose }: RepeatedModalProps) {
             <span className={styles.totalLabel}>láminas obtenidas</span>
           </div>
 
-          <div className={styles.teamGrid}>
-            {ownedItems.map((team) => (
-              <div key={team.code} className={styles.teamCard}>
-                <div className={styles.teamHeader}>
-                  <span className={styles.teamFlag}>{team.flag}</span>
-                  <span className={styles.teamName}>{team.name}</span>
-                  <span className={styles.teamCount}>{team.owned.length}</span>
+          <div className={styles.groupedList}>
+            {Object.entries(groupedItems).map(([group, teams]) => (
+              <div key={group} className={styles.groupSection}>
+                <div className={styles.groupHeader}>
+                  <span className={styles.groupBadge}>{group}</span>
+                  <span className={styles.groupTitle}>Group {group}</span>
                 </div>
-                <div className={styles.stickerGrid}>
-                  {team.owned.map(({ sticker, count }) => (
-                    <div key={sticker} className={styles.stickerCell}>
-                      <button
-                        className={styles.stickerNum}
-                        onClick={() => addRepeated(team.code, sticker - 1)}
-                        type="button"
-                      >
-                        {sticker}
-                      </button>
-                      {count > 1 && (
-                        <>
-                          <span className={styles.countBadge}>{count}</span>
-                          <button
-                            className={styles.minusBtn}
-                            onClick={() => removeRepeated(team.code, sticker - 1)}
-                            type="button"
-                          >
-                            −
-                          </button>
-                        </>
-                      )}
+                <div className={styles.teamGrid}>
+                  {teams.map((team) => (
+                    <div key={team.code} className={styles.teamCard}>
+                      <div className={styles.teamHeader}>
+                        <span className={styles.teamFlag}>{team.flag}</span>
+                        <span className={styles.teamName}>{team.name}</span>
+                        <span className={styles.teamAbbr}>{team.abbr}</span>
+                        <span className={styles.teamCount}>{team.owned.length}</span>
+                      </div>
+                      <div className={styles.stickerGrid}>
+                        {team.owned.map(({ sticker, count }) => (
+                          <div key={sticker} className={styles.stickerCell}>
+                            <button
+                              className={styles.stickerNum}
+                              onClick={() => addRepeated(team.code, sticker - 1)}
+                              type="button"
+                            >
+                              {sticker}
+                            </button>
+                            {count > 1 && (
+                              <>
+                                <span className={styles.countBadge}>{count - 1}</span>
+                                <button
+                                  className={styles.minusBtn}
+                                  onClick={() => removeRepeated(team.code, sticker - 1)}
+                                  type="button"
+                                >
+                                  −
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>

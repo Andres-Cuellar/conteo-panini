@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useApp } from '@/context/AppContext';
-import { exportSessionData, importSessionData, downloadJSON } from '@/lib/storage';
-import QRModal from './QRModal';
 import SummaryModal from './SummaryModal';
 import RepeatedModal from './RepeatedModal';
+import ImportExportModal from './ImportExportModal';
 import styles from './ActionBar.module.css';
 
 export default function ActionBar() {
-  const { activeSession, importSession } = useApp();
-  const [showQR, setShowQR] = useState(false);
+  const { activeSession } = useApp();
   const [showSummary, setShowSummary] = useState(false);
   const [showRepeated, setShowRepeated] = useState(false);
-  const [importStatus, setImportStatus] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showImportExport, setShowImportExport] = useState(false);
 
   const totalOwned = useMemo(() => {
     if (!activeSession) return 0;
@@ -27,58 +24,17 @@ export default function ActionBar() {
     return count;
   }, [activeSession]);
 
-  const handleExport = () => {
-    if (!activeSession) return;
-    const data = exportSessionData(activeSession);
-    const filename = `panini-${activeSession.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}.json`;
-    downloadJSON(data, filename);
-  };
-
-  const handleImportClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
-      const session = importSessionData(content);
-      if (session) {
-        importSession(session);
-        setImportStatus('Session imported successfully!');
-        setTimeout(() => setImportStatus(null), 3000);
-      } else {
-        setImportStatus('Invalid file format');
-        setTimeout(() => setImportStatus(null), 3000);
-      }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
-  };
-
   return (
     <>
       <div className={styles.bar}>
         <div className={styles.buttons}>
-          <button className={styles.btn} onClick={handleExport} type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Export
-          </button>
-
-          <button className={styles.btn} onClick={handleImportClick} type="button">
+          <button className={styles.btn} onClick={() => setShowImportExport(true)} type="button">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
               <line x1="12" y1="3" x2="12" y2="15" />
             </svg>
-            Import
+            Backup
           </button>
 
           <button className={styles.btn} onClick={() => setShowSummary(true)} type="button">
@@ -88,7 +44,7 @@ export default function ActionBar() {
               <line x1="16" y1="13" x2="8" y2="13" />
               <line x1="16" y1="17" x2="8" y2="17" />
             </svg>
-            Resumen
+            Faltantes
           </button>
 
           <button className={styles.btn} onClick={() => setShowRepeated(true)} type="button">
@@ -99,24 +55,6 @@ export default function ActionBar() {
             </svg>
             Mis Laminas
           </button>
-
-          {/* <button className={`${styles.btn} ${styles.qrBtn}`} onClick={() => setShowQR(true)} type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="3" y="3" width="7" height="7" />
-              <rect x="14" y="3" width="7" height="7" />
-              <rect x="3" y="14" width="7" height="7" />
-              <rect x="14" y="14" width="7" height="7" />
-            </svg>
-            QR
-          </button> */}
-
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".json"
-            onChange={handleFileChange}
-            className={styles.fileInput}
-          />
         </div>
 
         <div className={styles.footer}>
@@ -124,13 +62,9 @@ export default function ActionBar() {
         </div>
       </div>
 
-      {importStatus && (
-        <div className={styles.status}>{importStatus}</div>
-      )}
-
-      {showQR && <QRModal onClose={() => setShowQR(false)} />}
       {showSummary && <SummaryModal onClose={() => setShowSummary(false)} />}
       {showRepeated && <RepeatedModal onClose={() => setShowRepeated(false)} />}
+      {showImportExport && <ImportExportModal onClose={() => setShowImportExport(false)} />}
     </>
   );
 }

@@ -35,6 +35,16 @@
   min-width: 0;
 }
 
+.abbr {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8b8f9a;
+  background: #2a2f3d;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
 .group {
   font-size: 0.7rem;
   font-weight: 600;

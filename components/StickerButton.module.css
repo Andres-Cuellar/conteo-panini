@@ -1,0 +1,51 @@
+.button {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.number {
+  position: relative;
+  z-index: 1;
+}
+
+.check {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.missing {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.missing:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.owned {
+  background: var(--success);
+  border: 2px solid var(--success);
+  color: white;
+}
+
+.owned:hover {
+  background: #238b7e;
+  border-color: #238b7e;
+}

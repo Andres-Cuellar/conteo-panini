@@ -52,6 +52,8 @@ export default function RootLayout({
       <body>
         <ServiceWorkerRegistration />
         {children}
+
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="af355812-8e1d-46f5-8134-f2781e0a920b"></script>
       </body>
     </html>
   );

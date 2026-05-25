@@ -36,7 +36,7 @@ function HeroStats() {
       <div className={styles.heroRight}>
         <h2 className={styles.heroTitle}>World Cup<br />Sticker Album</h2>
         <p className={styles.heroSubtitle}>
-          Haz un seguimiento de tu colección Panini del Mundial de la FIFA 2026. Completa las colecciones de las 48 selecciones nacionales para llenar tu álbum.{' '}
+          Haz un seguimiento de tu colección Panini del Mundial de la FIFA 2026. Completa las colecciones de las 48 selecciones nacionales para llenar tu álbum.{' '} Desarrollado por
           <a href="https://instagram.com/felipec.ia" target="_blank" rel="noopener noreferrer">@felipec.ia</a>
         </p>
         <div className={styles.statsRow}>

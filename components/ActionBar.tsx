@@ -53,7 +53,7 @@ export default function ActionBar() {
               <line x1="3" y1="9" x2="21" y2="9" />
               <line x1="9" y1="21" x2="9" y2="9" />
             </svg>
-            Mis Laminas
+            Repetidas
           </button>
         </div>
 

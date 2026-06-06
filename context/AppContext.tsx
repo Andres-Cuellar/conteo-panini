@@ -214,12 +214,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
         sessions: prev.sessions.map((session) => {
           if (session.id !== prev.activeSessionId) return session;
           const newStickers = [...session.stickers[teamCode]];
-          // Ensure at least 1 before adding repeated
           if (newStickers[stickerIndex] === 0) {
+            // First time: set to 1 (owned, no repeated)
             newStickers[stickerIndex] = 1;
-          }
-          // Add up to 99 total (1 base + 98 repeated)
-          if (newStickers[stickerIndex] < 99) {
+          } else if (newStickers[stickerIndex] < 99) {
+            // Add repeated: increment by 1
             newStickers[stickerIndex] += 1;
           }
           return {

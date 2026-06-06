@@ -23,6 +23,8 @@ export default function TeamCard({
   ownedCount,
   totalCount = 20,
 }: TeamCardProps) {
+  const percentage = Math.round((ownedCount / totalCount) * 100);
+
   return (
     <Link href={`/team/${code}`} className={styles.card}>
       <div className={styles.header}>
@@ -32,18 +34,7 @@ export default function TeamCard({
           <span className={styles.name}>{name}</span>
         </div>
         <span className={styles.abbr}>{abbr}</span>
-      </div>
-      <div className={styles.progress}>
-        <div className={styles.progressBar}>
-          <div
-            className={styles.progressFill}
-            style={{ width: `${(ownedCount / totalCount) * 100}%` }}
-          />
-        </div>
-        <div className={styles.count}>
-          <span className={styles.countOwned}>{ownedCount}</span>
-          <span>/ {totalCount}</span>
-        </div>
+        <span className={styles.percentage}>{percentage}%</span>
       </div>
     </Link>
   );

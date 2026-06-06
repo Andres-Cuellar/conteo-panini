@@ -30,9 +30,9 @@ export default function ProgressRing({
   }, [percentage]);
 
   const fontSize = useMemo(() => {
-    if (size <= 100) return '1.5rem';
-    if (size <= 150) return '2.5rem';
-    return '3.5rem';
+    if (size <= 100) return '1rem';
+    if (size <= 150) return '1rem';
+    return '1rem';
   }, [size]);
 
   const small = size <= 100;
@@ -41,7 +41,7 @@ export default function ProgressRing({
     <div className={styles.container} style={{ width: size, height: size }}>
       <svg className={styles.svg} width={size} height={size}>
         <circle
-          className={styles.bg}
+          className={styles.bg} 
           cx={size / 2}
           cy={size / 2}
           r={radius}
@@ -61,7 +61,7 @@ export default function ProgressRing({
       {showLabel && (
         <div className={styles.label}>
           <span className={styles.percentage} style={{ fontSize }}>{Math.round(percentage)}</span>
-          {!small && <span className={styles.percent}>%</span>}
+          <span className={styles.percent}>%</span>
           {showLabelText && !small && (
             <span className={styles.labelText}>Complete</span>
           )}

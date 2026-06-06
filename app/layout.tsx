@@ -10,7 +10,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Panini World Cup 2026 - Sticker Album Tracker",
+  title: "World Cup 2026 - Sticker Album Tracker",
   description: "La página que te ayuda a organizar tus láminas de Panini del Mundial 2026. Controla qué tienes y qué te falta.",
   keywords: ["panini", "mundial 2026", "álbum", "láminas", "stickers", "fifa", "felipec.ia", "creamostuweb.co"],
   authors: [{ name: "felipec.ia", url: "https://instagram.com/felipec.ia" }],
@@ -18,16 +18,15 @@ export const metadata: Metadata = {
   publisher: "creamostuweb.co",
   manifest: "/manifest.json",
   openGraph: {
-    title: "Panini WC 2026 - Album Tracker",
+    title: "World Cup 2026 - Sticker Album Tracker",
     description: "La página que te ayuda a organizar tus láminas de Panini del Mundial 2026. Hecho por @felipec.ia 🌟",
-    url: "https://panini.creamostuweb.co",
-    siteName: "Panini 2026 Tracker",
+    siteName: "World Cup 2026 - Sticker Album Tracker",
     locale: "es_CO",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Panini WC 2026 - Album Tracker",
+    title: "World Cup 2026 - Sticker Album Tracker",
     description: "La página que te ayuda a organizar tus láminas de Panini del Mundial 2026. Hecho por @felipec.ia 🌟",
     creator: "@felipec.ia",
   },
@@ -38,7 +37,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Panini 2026",
+    title: "World Cup 2026 - Sticker Album Tracker",
   },
 };
 

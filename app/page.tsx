@@ -96,6 +96,77 @@ function ProgressBar() {
   );
 }
 
+function SearchBar() {
+  const [query, setQuery] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+
+  const results = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase().trim();
+    return TEAMS.filter(
+      (t) =>
+        t.name.toLowerCase().includes(q) ||
+        t.abbr.toLowerCase().includes(q) ||
+        t.code.toLowerCase().includes(q)
+    );
+  }, [query]);
+
+  const showResults = query.trim().length > 0;
+
+  return (
+    <div className={styles.searchSection}>
+      <div className={styles.searchWrapper}>
+        <svg className={styles.searchIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder="Buscar por nombre o abreviatura..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        />
+        {query && (
+          <button
+            className={styles.searchClear}
+            onClick={() => setQuery('')}
+            type="button"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        )}
+      </div>
+      {showResults && (
+        <div className={styles.searchResults}>
+          {results.length === 0 ? (
+            <p className={styles.searchNoResults}>No se encontraron equipos</p>
+          ) : (
+            <div className={styles.searchResultsGrid}>
+              {results.map((team) => (
+                <TeamCard
+                  key={team.code}
+                  code={team.code}
+                  name={team.name}
+                  abbr={team.abbr}
+                  flag={team.flag}
+                  group={team.group}
+                  ownedCount={0}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function TeamsGrid() {
   const { activeSession } = useApp();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(GROUPS));
@@ -210,7 +281,7 @@ function DashboardContent() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <span className={styles.logoIcon}>📘</span>
-          <h1 className={styles.title}>Panini 2026</h1>
+          <h1 className={styles.title}>Conteo Laminas</h1>
         </div>
         <SessionSelector />
       </header>
@@ -222,6 +293,7 @@ function DashboardContent() {
         <Suspense fallback={<div className={styles.loading}>Loading progress...</div>}>
           <ProgressBar />
         </Suspense>
+        <SearchBar />
         <Suspense fallback={<div className={styles.loading}>Loading teams...</div>}>
           <TeamsGrid />
         </Suspense>

@@ -11,7 +11,7 @@ import styles from './page.module.css';
 function TeamDetailContent() {
   const params = useParams();
   const router = useRouter();
-  const { activeSession, toggleSticker, markTeamStickers } = useApp();
+  const { activeSession, addRepeated, removeRepeated, markTeamStickers } = useApp();
 
   const teamCode = params.code as string;
   const team = getTeamByCode(teamCode);
@@ -29,8 +29,12 @@ function TeamDetailContent() {
     };
   }, [activeSession, teamCode, team]);
 
-  const handleToggle = (index: number) => {
-    toggleSticker(teamCode, index);
+  const handleAdd = (index: number) => {
+    addRepeated(teamCode, index);
+  };
+
+  const handleRemove = (index: number) => {
+    removeRepeated(teamCode, index);
   };
 
   if (!team) {
@@ -66,20 +70,16 @@ function TeamDetailContent() {
             <h1 className={styles.name}>{team.name}</h1>
           </div>
           <div className={styles.ring}>
-            <ProgressRing percentage={stats.percentage} size={80} strokeWidth={6} showLabelText={false} />
+            <ProgressRing percentage={stats.percentage} size={80} strokeWidth={5} showLabelText={false} /> 
           </div>
         </section>
 
-        <section className={styles.stats}>
+        {/* <section className={styles.stats}>
           <div className={styles.statItem}>
-            <span className={styles.statValue}>{stats.owned}</span>
-            <span className={styles.statLabel}>Owned</span>
+            <span className={styles.statValue}>{Math.round(stats.percentage)}%</span>
+            <span className={styles.statLabel}>Completado</span>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statValue}>{stats.total - stats.owned}</span>
-            <span className={styles.statLabel}>Missing</span>
-          </div>
-        </section>
+        </section> */}
 
         <section className={styles.actions}>
           <button
@@ -103,8 +103,9 @@ function TeamDetailContent() {
             <StickerButton
               key={i}
               number={i + 1}
-              owned={stickers[i] > 0}
-              onClick={() => handleToggle(i)}
+              count={stickers[i]}
+              onClick={() => handleAdd(i)}
+              onRemove={() => handleRemove(i)}
             />
           ))}
         </section>

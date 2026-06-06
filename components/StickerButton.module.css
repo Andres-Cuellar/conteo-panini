@@ -49,3 +49,48 @@
   background: #238b7e;
   border-color: #238b7e;
 }
+
+.countBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 2px solid var(--success);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  padding: 0 4px;
+  z-index: 2;
+}
+
+.minusBtn {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-primary);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  z-index: 3;
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease;
+}
+
+.minusBtn:hover {
+  background: #c42d3c;
+  transform: scale(1.1);
+}

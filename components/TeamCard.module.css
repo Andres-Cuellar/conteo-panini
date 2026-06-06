@@ -1,8 +1,7 @@
 .card {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  align-items: center;
+  padding: 14px 16px;
   background: #1a1d26;
   border: 1px solid #2a2f3d;
   border-radius: 12px;
@@ -11,33 +10,34 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   border-color: rgba(230, 57, 70, 0.4);
-  box-shadow: 0 8px 24px rgba(230, 57, 70, 0.12);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.1);
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  width: 100%;
 }
 
 .flag {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   line-height: 1;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   flex: 1;
   min-width: 0;
 }
 
 .abbr {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #8b8f9a;
   background: #2a2f3d;
@@ -46,7 +46,7 @@
 }
 
 .group {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   color: #e63946;
   text-transform: uppercase;
@@ -55,7 +55,7 @@
 
 .name {
   font-family: 'Syne', sans-serif;
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #f5f5f7;
   white-space: nowrap;
@@ -63,35 +63,11 @@
   text-overflow: ellipsis;
 }
 
-.progress {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.progressBar {
-  height: 4px;
-  background: #2a2f3d;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, #2a9d8f, #3fc1a8);
-  border-radius: 2px;
-  transition: width 400ms ease;
-}
-
-.count {
-  display: flex;
-  justify-content: space-between;
+.percentage {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  color: #8b8f9a;
-}
-
-.countOwned {
+  font-size: 0.875rem;
+  font-weight: 700;
   color: #2a9d8f;
-  font-weight: 600;
+  min-width: 40px;
+  text-align: right;
 }

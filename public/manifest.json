@@ -1,6 +1,6 @@
 {
-  "name": "Panini World Cup 2026 - Sticker Album Tracker",
-  "short_name": "Panini 2026",
+  "name": "World Cup 2026 - Sticker Album Tracker",
+  "short_name": "World Cup 2026",
   "description": "La página que te ayuda a organizar tus láminas de Panini del Mundial 2026.",
   "start_url": "/",
   "display": "standalone",

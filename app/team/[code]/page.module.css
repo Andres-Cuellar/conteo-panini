@@ -113,7 +113,6 @@
 .stats {
   display: flex;
   justify-content: center;
-  gap: 48px;
   margin-bottom: 24px;
 }
 
@@ -126,9 +125,10 @@
 
 .statValue {
   font-family: var(--font-mono);
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 .statLabel {
@@ -171,45 +171,11 @@
   border-color: var(--text-secondary);
 }
 
-.hint {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  text-align: center;
-  margin-bottom: 24px;
-}
-
 .stickerGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 12px;
   justify-items: center;
-}
-
-.stickerWrapper {
-  position: relative;
-  transition: transform 100ms ease;
-}
-
-.stickerWrapper.pressed {
-  transform: scale(0.9);
-}
-
-.repeatedBadge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 18px;
-  height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--warning);
-  color: #1a1d26;
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: 700;
-  border-radius: 9px;
-  padding: 0 4px;
 }
 
 @media (min-width: 400px) {

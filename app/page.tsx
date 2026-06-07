@@ -30,14 +30,11 @@ function HeroStats() {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.heroLeft}>
-        <ProgressRing percentage={stats.percentage} size={200} strokeWidth={14} />
-      </div>
       <div className={styles.heroRight}>
-        <h2 className={styles.heroTitle}>World Cup<br />Sticker Album</h2>
+        <h2 className={styles.heroTitle}>World Cup Sticker Album</h2>
         <p className={styles.heroSubtitle}>
           Haz un seguimiento de tu colección Panini del Mundial de la FIFA 2026. Completa las colecciones de las 48 selecciones nacionales para llenar tu álbum.{' '} Desarrollado por
-          <a href="https://instagram.com/felipec.ia" target="_blank" rel="noopener noreferrer">@felipec.ia</a>
+          <a href="https://instagram.com/felipec.ia" target="_blank" rel="noopener noreferrer"> @felipec.ia</a>
         </p>
         <div className={styles.statsRow}>
           <div className={styles.statItem}>
@@ -288,12 +285,12 @@ function DashboardContent() {
 
       <main className={styles.main}>
         <Suspense fallback={<div className={styles.loading}>Loading stats...</div>}>
+        <SearchBar />
           <HeroStats />
         </Suspense>
         <Suspense fallback={<div className={styles.loading}>Loading progress...</div>}>
           <ProgressBar />
         </Suspense>
-        <SearchBar />
         <Suspense fallback={<div className={styles.loading}>Loading teams...</div>}>
           <TeamsGrid />
         </Suspense>

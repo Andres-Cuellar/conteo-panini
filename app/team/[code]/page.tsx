@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { AppProvider, useApp } from '@/context/AppContext';
 import StickerButton from '@/components/StickerButton';
-import ProgressRing from '@/components/ProgressRing';
+import ProgressBar from '@/components/ProgressBar';
 import { getTeamByCode, STICKERS_PER_TEAM } from '@/lib/teams';
 import styles from './page.module.css';
 
@@ -69,10 +69,10 @@ function TeamDetailContent() {
             <span className={styles.group}>Group {team.group}</span>
             <h1 className={styles.name}>{team.name}</h1>
           </div>
-          <div className={styles.ring}>
-            <ProgressRing percentage={stats.percentage} size={80} strokeWidth={5} showLabelText={false} /> 
-          </div>
         </section>
+        <div className={styles.teamProgress}>
+          <ProgressBar owned={stats.owned} total={stats.total} />
+        </div>
 
         {/* <section className={styles.stats}>
           <div className={styles.statItem}>

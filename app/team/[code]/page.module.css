@@ -110,6 +110,10 @@
   flex-shrink: 0;
 }
 
+.teamProgress {
+  margin-bottom: 16px;
+}
+
 .stats {
   display: flex;
   justify-content: center;
